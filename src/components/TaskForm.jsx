@@ -3,27 +3,41 @@ import React, {useState} from 'react';
 const TaskForm = (props) => {
     const [task, setTask] = useState('');
     const [currentId, setCurrentId] = useState(0);
+    const [deadline, setDeadline] = useState('')
 
     const createTask = (event) => {
         event.preventDefault();
-        const newTask = {
-            value: task,
-            id: currentId
+        if(task.trim()) {
+            
+            const newTask = {
+                value: task,
+                id: currentId,
+                date: deadline
+            }
+            setCurrentId(currentId+1);
+            props.create(newTask);
+            setTask('');
+            setDeadline('')  
+        } else {
+            alert('Enter a task, please')
         }
-        setCurrentId(currentId+1);
-        props.create(newTask);
-        setTask('');
+        
     };
     
     return (
-        <form >
+        <form className='todo-form'>
             <input 
                 type='text' 
                 placeholder='Enter a task' 
                 onChange = {(event) => setTask(event.target.value)}
                 value = {task}
             />
-            <button onClick={(event) => createTask(event)}>Create</button>
+            <input
+                type='date'
+                onChange= {(event) => setDeadline(event.target.value)}
+                value = {deadline}
+            />
+            <button className='todo-btn' onClick={(event) => createTask(event)}>Create</button>
         </form>
     );
 };

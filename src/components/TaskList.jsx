@@ -9,12 +9,16 @@ const TaskList = (props) => {
      return <h3>Please create some tasks</h3>
     }
 
-
-
     return (
-        <div>
+        <div className='task-list'>
             {taskList.map((task) => 
-                <TaskItem delete={props.delete} key={task.id} desc={task.value} task={task}/>
+                <TaskItem 
+                    date={task.date} 
+                    delete={props.delete} 
+                    key={task.id}
+                    id={task.id}
+                    desc={task.value} 
+                    task={task}/>
             )}
         </div>
     );
